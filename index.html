@@ -142,7 +142,7 @@ footer p{margin:1rem 0 1.6rem;font-weight:500}
 
 .sv-stage{grid-area:stage;position:relative;container-type:inline-size;aspect-ratio:1/.98;touch-action:pan-y;--mx:0;--my:0}
 .sv-big{position:absolute;inset:0;display:grid;place-items:center;font:italic 400 72cqw/1 var(--serif);color:transparent;-webkit-text-stroke:2px color-mix(in srgb,var(--ac) 14%,transparent);pointer-events:none;user-select:none;padding-bottom:6cqw}
-.sv-geo{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.sv-geo{display:none!important;position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 .sv-geo path{fill:none;stroke:var(--ac);stroke-linejoin:round;stroke-linecap:round}
 .sv-hp{stroke-width:.18;stroke-dasharray:.8 1.2;opacity:.5}
 .sv-star{stroke-width:.28;stroke-dasharray:1;stroke-dashoffset:0;animation:svDraw 1.8s .1s cubic-bezier(.55,0,.2,1) both;filter:drop-shadow(0 0 .6px var(--ac))}
@@ -168,7 +168,7 @@ footer p{margin:1rem 0 1.6rem;font-weight:500}
  .sv-stage{width:100%;max-width:760px;margin-inline:auto}
  .sv-g{max-width:44ch}.sv-meta{padding-top:1.4rem}
 }
-@media(max-width:860px){
+@media(max-width:860px),(orientation:landscape) and (max-height:620px){
  .sv-rail{margin-inline:-1.2rem;border-radius:0;border-inline:0;padding:.4rem 1.2rem;scroll-snap-type:x proximity}
  .sv-ind{top:.4rem}.sv-tab{padding:.7rem 1rem;scroll-snap-align:center}
  .sv-panel{padding:1.5rem 1.1rem 1.2rem}
@@ -245,7 +245,7 @@ footer p{margin:1rem 0 1.6rem;font-weight:500}
   <div class="rv"><span class="tag">With love</span><h2>Candace’s <i>Lucky Sevens</i></h2><p class="sl">Seven special people for each of the seven celebrations on Candace’s seventh birthday.</p></div>
   <div class="names">
     <div class="nc rv" data-ic="🌹" data-tg="A rose from each person who loves her most"><h3>7 Roses</h3><ol><li>Papa Mark Caballero</li><li>Lolo Nanding Lina</li><li>Calixto Jabson</li><li>Gavin Larazo</li><li>Angelo De Luna</li><li>Clyde Bolar</li><li>Ryerye De Leon</li></ol></div>
-    <div class="nc rv" data-ic="✨" data-tg="Seven wishes whispered for her seventh year" style="--d:0.1s"><h3>7 Wishes</h3><ol><li>Mommy Leanie Valenzuela</li><li>Lola Rosa Sangalang</li><li>Tita Jenny Caballero</li><li>Lola Vicky Lina</li><li>Lola Isang De Leon</li><li>Mam Lina Baliwag</li><li>Teacher Belinda Bitantes</li></ol></div>
+    <div class="nc rv" data-ic="✨" data-tg="Seven wishes whispered for her seventh year" style="--d:0.1s"><h3>7 Wishes</h3><ol><li>Mommy Leanie Valenzuela</li><li>Lola Rosa Sangalang</li><li>Tita Jenny Caballero</li><li>Lola Vicky Lina</li><li>Lola Isang De Leon</li><li>Mam Lina Baliwag</li><li>Tita Wennie Banaag</li></ol></div>
     <div class="nc rv" data-ic="💸" data-tg="Lucky bills for a lucky seven"><h3>7 Bills</h3><ol><li>Ninang Beanne Surbano</li><li>Ninang Jonalyn Carvajal</li><li>Ninang Mia Albano</li><li>Ninang Jenie Mary</li><li>Ninang Cesa Valenzuela</li><li>Tita Wennie Banaag</li><li>Tita Rosette Regalado</li></ol></div>
     <div class="nc rv" data-ic="🌙" data-tg="Cozy dreams for a sleepy-sweet birthday girl" style="--d:0.1s"><h3>7 Sleepwear</h3><ol><li>Tita Mhay Competente</li><li>Tita Jennelyn Latayan</li><li>Yassi Quinay</li><li>Jorielle Ramos</li><li>Glen Camili Marasigan</li><li>Yona Mapote</li><li>Ate Aubrey Banaag</li></ol></div>
     <div class="nc rv" data-ic="🍫" data-tg="Sweet treats from her sweetest friends"><h3>7 Chocolates</h3><ol><li>Calix Jabson</li><li>Gavin Larazo</li><li>Katriona Rivera</li><li>Basty Flores</li><li>Angelo De Luna</li><li>Nyjah Joves</li><li>Amelia Alibo</li></ol></div>
