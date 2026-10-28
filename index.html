@@ -325,8 +325,6 @@ if(user)rail.scrollTo({left:tabs[i].offsetLeft-(rail.clientWidth-tabs[i].offsetW
 tabs.forEach((t,i)=>{t.onclick=()=>go(i,1);t.onkeydown=e=>{const k={ArrowRight:1,ArrowDown:1,ArrowLeft:-1,ArrowUp:-1}[e.key];if(k){e.preventDefault();go(cur+k,1);tabs[cur].focus()}else if(e.key=="Home"){e.preventDefault();go(0,1);tabs[0].focus()}else if(e.key=="End"){e.preventDefault();go(D.length-1,1);tabs[cur].focus()}}});
 dots.forEach((b,i)=>b.onclick=()=>go(i,1));
 h.querySelector(".pv").onclick=()=>go(cur-1,1);h.querySelector(".nx").onclick=()=>go(cur+1,1);
-/* tap a name: little burst of confetti */
-ls.addEventListener("click",e=>{const c=e.target.closest(".sv-c");if(c){const r=c.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,38)}});
 /* mouse parallax */
 if(!reduce){st.addEventListener("pointermove",e=>{if(e.pointerType!="mouse")return;const r=st.getBoundingClientRect();st.style.setProperty("--mx",((e.clientX-r.left)/r.width*2-1).toFixed(3));st.style.setProperty("--my",((e.clientY-r.top)/r.height*2-1).toFixed(3))});
 st.addEventListener("pointerleave",()=>{st.style.setProperty("--mx",0);st.style.setProperty("--my",0)})}
