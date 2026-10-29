@@ -220,6 +220,21 @@ footer p{margin:1rem 0 1.6rem;font-weight:500}
  .mapw iframe{min-height:300px}
  section{padding:4.5rem 0}.hero{padding-top:6.5rem}
  }
+/* Lucky Sevens: same simple list on every screen (portrait + landscape) */
+.svs{max-width:780px;margin-inline:auto}
+.sv-panel{grid-template-columns:minmax(0,1fr);grid-template-rows:auto;grid-template-areas:"head" "stage" "meta";padding:1.8rem 1.5rem 1.4rem}
+.sv-head{padding-top:0}
+.sv-g{max-width:44ch}
+.sv-meta{padding-top:1.2rem}
+.sv-stage{aspect-ratio:auto;container-type:normal;width:100%;max-width:none;margin:1.4rem 0 0}
+.sv-big,.sv-geo,.sv-core{display:none}
+.sv-l{position:relative;display:grid;gap:.65rem}
+.sv-l::before{content:"";position:absolute;left:calc(.9rem + 16px);top:24px;bottom:24px;width:2px;border-radius:2px;background:linear-gradient(var(--ac),var(--ac2));opacity:.3}
+.sv-l li{position:static;translate:none;width:auto}
+.sv-c{display:flex;align-items:center;gap:.9rem;text-align:left;padding:.75rem .9rem;translate:none}
+.sv-n{position:static;translate:none;flex:none;width:34px;height:34px;font-size:1.1rem}
+.sv-tx b{font-size:1.05rem;text-wrap:wrap}
+.sv-t{font-size:clamp(3rem,15vw,4.2rem)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
 </style><noscript><style>.rv{opacity:1;transform:none}</style></noscript></head>
 <body>
