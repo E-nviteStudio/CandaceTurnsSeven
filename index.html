@@ -356,16 +356,15 @@ let sx=0;lb.addEventListener("touchstart",e=>sx=e.touches[0].clientX,{passive:tr
 #song .sb i{font-style:normal;display:grid;place-items:center;width:1.7rem;height:1.7rem;border-radius:50%;background:rgba(255,255,255,.25)}
 #song.on .sb i{animation:sg 1.2s ease-in-out infinite}
 @keyframes sg{50%{transform:scale(1.18) rotate(-10deg)}}
-#song .sp{display:none;width:min(280px,calc(100vw - 1.8rem));border-radius:18px;overflow:hidden;background:#000;box-shadow:0 14px 36px rgba(42,10,34,.45);aspect-ratio:16/9}
-#song.on .sp{display:block}
-#song iframe{width:100%;height:100%;border:0;display:block}
+#song .sp{position:fixed;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none}
+#song iframe{width:200px;height:200px;border:0}
 </style>
-<div id="song"><div class="sp" id="songp"></div><button class="sb" id="songb" type="button" aria-expanded="false"><i aria-hidden="true">♪</i><span>Play “Barbie Girl” · Aqua</span></button></div>
+<div id="song"><div class="sp" id="songp"></div><button class="sb" id="songb" type="button" aria-expanded="false"><i aria-hidden="true">♪</i><span>Click to Play “Barbie Girl” Music</span></button></div>
 <script>
 (function(){const w=document.getElementById("song"),b=document.getElementById("songb"),p=document.getElementById("songp"),t=b.querySelector("span");
 const ID="ZyhrYis509A";
 b.addEventListener("click",()=>{const on=w.classList.toggle("on");b.setAttribute("aria-expanded",on);
-if(on){p.innerHTML='<iframe src="https://www.youtube.com/embed/'+ID+'?autoplay=1&playsinline=1&rel=0&loop=1&playlist='+ID+'" title="Aqua - Barbie Girl (Official Music Video)" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';t.textContent="Stop music"}
-else{p.innerHTML="";t.textContent="Play “Barbie Girl” · Aqua"}});})();
+if(on){p.innerHTML='<iframe src="https://www.youtube.com/embed/'+ID+'?autoplay=1&playsinline=1&rel=0&loop=1&playlist='+ID+'" title="Aqua - Barbie Girl (Official Music Video)" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';t.textContent="Stop “Barbie Girl” Music"}
+else{p.innerHTML="";t.textContent="Click to Play “Barbie Girl” Music"}});})();
 </script>
 </body></html>
