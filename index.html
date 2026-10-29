@@ -137,6 +137,9 @@ footer p{margin:1rem 0 1.6rem;font-weight:500}
 @media(hover:hover){.sv-tab:hover i{transform:scale(1.2) rotate(-8deg)}.sv-tab:not([aria-selected=true]):hover{color:var(--ac)}}
 .sv-tab[aria-selected=true]{color:#fff}
 
+.svs{display:grid;gap:1.4rem}
+.sv-panel:not(.on) *{animation-play-state:paused!important}
+.sv-head{animation:none}
 .sv-panel{position:relative;display:grid;grid-template-columns:minmax(250px,330px) minmax(0,1fr);grid-template-rows:1fr auto;grid-template-areas:"head stage" "meta stage";column-gap:1rem;padding:2rem 1.6rem 1.6rem 2.2rem;border-radius:var(--r);overflow:hidden;background:radial-gradient(circle at 68% 52%,color-mix(in srgb,var(--ac) 13%,transparent),transparent 62%),var(--glass);border:1px solid #fff;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 34px 70px -38px var(--ac)}
 .sv-head{grid-area:head;align-self:center;padding-top:1rem;animation:svIn .6s cubic-bezier(.2,.8,.2,1) both}
 .sv-no{font-weight:700;letter-spacing:.22em;font-size:.7rem;text-transform:uppercase;color:var(--ac)}
@@ -252,7 +255,7 @@ footer p{margin:1rem 0 1.6rem;font-weight:500}
 </div></section>
 
 <section id="honor"><div class="wrap">
-  <div class="rv"><span class="tag">With love</span><h2>Candace’s <i>Lucky Sevens</i></h2><p class="sl">Seven special people for each of the seven celebrations on Candace’s seventh birthday. *Swipe Right for more names</p></div>
+  <div class="rv"><span class="tag">With love</span><h2>Candace’s <i>Lucky Sevens</i></h2><p class="sl">Seven special people for each of the seven celebrations on Candace’s seventh birthday.</p></div>
   <div class="names">
     <div class="nc rv" data-ic="🌹" data-tg="A rose from each person who loves her most"><h3>7 Roses</h3><ol><li>Papa Mark Caballero</li><li>Lolo Nanding Lina</li><li>Calixto Jabson</li><li>Gavin Larazo</li><li>Angelo De Luna</li><li>Clyde Bolar</li><li>Ryerye De Leon</li></ol></div>
     <div class="nc rv" data-ic="✨" data-tg="Seven wishes whispered for her seventh year" style="--d:0.1s"><h3>7 Wishes</h3><ol><li>Mommy Leanie Valenzuela</li><li>Lola Rosa Sangalang</li><li>Tita Jenny Caballero</li><li>Lola Vicky Lina</li><li>Lola Isang De Leon</li><li>Mam Lina Baliwag</li><li>Ate Julien Caballero</li></ol></div>
@@ -311,37 +314,19 @@ const roles=["Papa","Mommy","Lolo","Lola","Tita","Ninang","Ninong","Ate","Mam","
 const PAL=[["#e0007a","#ff4db8"],["#7c2cf0","#a855f7"],["#067a54","#14a273"],["#3b49e8","#6f7dff"],["#9a4318","#c2652c"],["#d9421a","#f27a4a"],["#c20a78","#9b4dff"]];
 const D=src.map((c,i)=>({t:c.querySelector("h3").textContent.replace(/^7\s*/,""),ic:c.dataset.ic,g:c.dataset.tg,c:PAL[i%PAL.length],p:[...c.querySelectorAll("li")].map(l=>{const w=l.textContent.trim().split(" ");return roles.includes(w[0])?{r:w[0],n:w.slice(1).join(" ")}:{r:"",n:w.join(" ")}})}));
 const total=D.reduce((a,d)=>a+d.p.length,0),pad=n=>String(n).padStart(2,"0");
-const names=$(".names"),h=document.createElement("div");h.className="sv rv";
-h.innerHTML='<div class="sv-rail" role="tablist" aria-label="Choose a celebration"><span class="sv-ind" aria-hidden="true"></span>'+D.map((d,i)=>`<button class="sv-tab" role="tab" id="svt${i}" aria-controls="svp" aria-selected="false" tabindex="-1"><i aria-hidden="true">${d.ic}</i><span>${d.t}</span></button>`).join("")+'</div>'
-+'<div class="sv-panel" id="svp" role="tabpanel"><div class="sv-head"></div><div class="sv-stage"><div class="sv-big" aria-hidden="true">7</div><div class="sv-gh"></div><div class="sv-core" aria-hidden="true"><span></span></div><ol class="sv-l"></ol></div>'
-+`<div class="sv-meta"><p class="sv-tot"><b>${total}</b> loved ones · ${D.length} celebrations</p><div class="sv-bar"><div class="sv-d" aria-hidden="true">${D.map(()=>'<button tabindex="-1"></button>').join("")}</div><div class="sv-nav"><button class="pv" aria-label="Previous group">‹</button><button class="nx" aria-label="Next group">›</button></div></div></div></div>`;
-names.after(h);names.hidden=true;
-const rail=h.querySelector(".sv-rail"),tabs=[...h.querySelectorAll(".sv-tab")],dots=[...h.querySelectorAll(".sv-d button")],hd=h.querySelector(".sv-head"),ls=h.querySelector(".sv-l"),gh=h.querySelector(".sv-gh"),core=h.querySelector(".sv-core span"),pn=h.querySelector("#svp"),st=h.querySelector(".sv-stage");let cur=-1;
-/* seven points of a heptagon, as % of the stage */
+const names=$(".names"),h=document.createElement("div");h.className="svs";
 const P=[...Array(7)].map((_,k)=>{const a=-Math.PI/2+k*2*Math.PI/7;return[50+34*Math.cos(a),49+36*Math.sin(a)]});
 const path=o=>"M"+o.map(k=>P[k].map(v=>v.toFixed(2)).join(" ")).join("L")+"Z";
 const hept=path([0,1,2,3,4,5,6]),star=path([0,2,4,6,1,3,5]);
-const ind=()=>{const t=tabs[cur];if(!t)return;rail.style.setProperty("--ix",t.offsetLeft+"px");rail.style.setProperty("--iw",t.offsetWidth+"px")};
-function go(i,user){i=(i+D.length)%D.length;if(i===cur)return;cur=i;const d=D[i];
-h.style.setProperty("--ac",d.c[0]);h.style.setProperty("--ac2",d.c[1]);
-tabs.forEach((t,k)=>{t.setAttribute("aria-selected",k==i);t.tabIndex=k==i?0:-1});dots.forEach((b,k)=>b.setAttribute("aria-current",k==i));
-pn.setAttribute("aria-labelledby","svt"+i);ind();
-hd.innerHTML=`<p class="sv-no">Lucky no. ${pad(i+1)} / ${pad(D.length)}</p><h3 class="sv-t"><b>7</b><i>${d.t}</i></h3><p class="sv-g">${d.g}</p>`;
-hd.style.animation="none";hd.offsetWidth;hd.style.animation="";
-gh.innerHTML=`<svg class="sv-geo" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path class="sv-hp" d="${hept}"/><path class="sv-star" pathLength="1" d="${star}"/></svg>`;
-core.textContent=d.ic;core.parentNode.style.animation="none";core.parentNode.offsetWidth;core.parentNode.style.animation="";
-ls.innerHTML=d.p.map((x,k)=>`<li style="--x:${P[k][0].toFixed(2)}%;--y:${P[k][1].toFixed(2)}%"><div class="sv-c" style="--i:${k};--dp:${6+(k%3)*5}"><span class="sv-n" aria-hidden="true">${k+1}</span><div class="sv-tx"><small>${x.r}</small><b>${x.n}</b></div></div></li>`).join("");
-if(user)rail.scrollTo({left:tabs[i].offsetLeft-(rail.clientWidth-tabs[i].offsetWidth)/2,behavior:reduce?"auto":"smooth"})}
-tabs.forEach((t,i)=>{t.onclick=()=>go(i,1);t.onkeydown=e=>{const k={ArrowRight:1,ArrowDown:1,ArrowLeft:-1,ArrowUp:-1}[e.key];if(k){e.preventDefault();go(cur+k,1);tabs[cur].focus()}else if(e.key=="Home"){e.preventDefault();go(0,1);tabs[0].focus()}else if(e.key=="End"){e.preventDefault();go(D.length-1,1);tabs[cur].focus()}}});
-dots.forEach((b,i)=>b.onclick=()=>go(i,1));
-h.querySelector(".pv").onclick=()=>go(cur-1,1);h.querySelector(".nx").onclick=()=>go(cur+1,1);
+h.innerHTML=D.map((d,i)=>`<div class="sv rv" style="--ac:${d.c[0]};--ac2:${d.c[1]}"><div class="sv-panel"><div class="sv-head"><p class="sv-no">Lucky no. ${pad(i+1)} / ${pad(D.length)}</p><h3 class="sv-t"><b>7</b><i>${d.t}</i></h3><p class="sv-g">${d.g}</p></div><div class="sv-stage"><div class="sv-big" aria-hidden="true">7</div><div class="sv-gh"><svg class="sv-geo" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path class="sv-hp" d="${hept}"/><path class="sv-star" pathLength="1" d="${star}"/></svg></div><div class="sv-core" aria-hidden="true"><span>${d.ic}</span></div><ol class="sv-l">${d.p.map((x,k)=>`<li style="--x:${P[k][0].toFixed(2)}%;--y:${P[k][1].toFixed(2)}%"><div class="sv-c" style="--i:${k};--dp:${6+(k%3)*5}"><span class="sv-n" aria-hidden="true">${k+1}</span><div class="sv-tx"><small>${x.r}</small><b>${x.n}</b></div></div></li>`).join("")}</ol></div><div class="sv-meta">${i==D.length-1?`<p class="sv-tot"><b>${total}</b> loved ones · ${D.length} celebrations</p>`:""}</div></div></div>`).join("");
+names.after(h);names.hidden=true;
+/* play each panel's animations when it scrolls into view */
+const po=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("on");po.unobserve(e.target)}}),{threshold:.15});
+h.querySelectorAll(".sv-panel").forEach(p=>po.observe(p));
 /* mouse parallax */
-if(!reduce){st.addEventListener("pointermove",e=>{if(e.pointerType!="mouse")return;const r=st.getBoundingClientRect();st.style.setProperty("--mx",((e.clientX-r.left)/r.width*2-1).toFixed(3));st.style.setProperty("--my",((e.clientY-r.top)/r.height*2-1).toFixed(3))});
-st.addEventListener("pointerleave",()=>{st.style.setProperty("--mx",0);st.style.setProperty("--my",0)})}
-/* swipe between groups */
-let tx=0;pn.addEventListener("touchstart",e=>tx=e.touches[0].clientX,{passive:true});pn.addEventListener("touchend",e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>60)go(cur+(d<0?1:-1),1)});
-addEventListener("resize",ind);document.fonts&&document.fonts.ready.then(ind);
-go(0)})();
+if(!reduce)h.querySelectorAll(".sv-stage").forEach(st=>{st.addEventListener("pointermove",e=>{if(e.pointerType!="mouse")return;const r=st.getBoundingClientRect();st.style.setProperty("--mx",((e.clientX-r.left)/r.width*2-1).toFixed(3));st.style.setProperty("--my",((e.clientY-r.top)/r.height*2-1).toFixed(3))});
+st.addEventListener("pointerleave",()=>{st.style.setProperty("--mx",0);st.style.setProperty("--my",0)})});
+})();
 
 /* nav, parallax, reveal */
 const bg=$("#burger"),ln=$("#links");
@@ -365,4 +350,22 @@ lb.querySelector(".x").onclick=()=>lb.hidden=true;lb.querySelector(".p").onclick
 lb.onclick=e=>{if(e.target===lb)lb.hidden=true};
 addEventListener("keydown",e=>{if(lb.hidden)return;if(e.key=="Escape")lb.hidden=true;if(e.key=="ArrowLeft")show(cur-1);if(e.key=="ArrowRight")show(cur+1)});
 let sx=0;lb.addEventListener("touchstart",e=>sx=e.touches[0].clientX,{passive:true});lb.addEventListener("touchend",e=>{const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>50)show(cur+(d<0?1:-1))});
-</script></body></html>
+</script><style>
+#song{position:fixed;z-index:120;left:max(.9rem,env(safe-area-inset-left,0px));bottom:calc(.9rem + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:flex-start;gap:.6rem;font-family:var(--sans)}
+#song .sb{display:flex;align-items:center;gap:.55rem;border:0;cursor:pointer;color:#fff;font:700 .85rem var(--sans);padding:.7rem 1.05rem .7rem .8rem;border-radius:999px;background:linear-gradient(135deg,var(--fu),var(--hot));box-shadow:0 10px 26px rgba(224,0,122,.4)}
+#song .sb i{font-style:normal;display:grid;place-items:center;width:1.7rem;height:1.7rem;border-radius:50%;background:rgba(255,255,255,.25)}
+#song.on .sb i{animation:sg 1.2s ease-in-out infinite}
+@keyframes sg{50%{transform:scale(1.18) rotate(-10deg)}}
+#song .sp{display:none;width:min(280px,calc(100vw - 1.8rem));border-radius:18px;overflow:hidden;background:#000;box-shadow:0 14px 36px rgba(42,10,34,.45);aspect-ratio:16/9}
+#song.on .sp{display:block}
+#song iframe{width:100%;height:100%;border:0;display:block}
+</style>
+<div id="song"><div class="sp" id="songp"></div><button class="sb" id="songb" type="button" aria-expanded="false"><i aria-hidden="true">♪</i><span>Play “Barbie Girl” · Aqua</span></button></div>
+<script>
+(function(){const w=document.getElementById("song"),b=document.getElementById("songb"),p=document.getElementById("songp"),t=b.querySelector("span");
+const ID="ZyhrYis509A";
+b.addEventListener("click",()=>{const on=w.classList.toggle("on");b.setAttribute("aria-expanded",on);
+if(on){p.innerHTML='<iframe src="https://www.youtube.com/embed/'+ID+'?autoplay=1&playsinline=1&rel=0&loop=1&playlist='+ID+'" title="Aqua - Barbie Girl (Official Music Video)" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';t.textContent="Stop music"}
+else{p.innerHTML="";t.textContent="Play “Barbie Girl” · Aqua"}});})();
+</script>
+</body></html>
